@@ -13,7 +13,7 @@ CREATE TABLE `client`(
 `last_name` varchar(255) NOT NULL,
 `email` varchar(255) NOT NULL,
 PRIMARY KEY (`id`),
-CONSTRAINT full_name UNIQUE (full_name, last_name)
+CONSTRAINT full_name UNIQUE (first_name, last_name)
 )ENGINE=InnoDB;
 
 /*id- an auto-incrementing integer which is the primary key, size 11
@@ -30,7 +30,7 @@ CREATE TABLE `employee`(
 `start_date` DATE NOT NULL,
 `email` varchar(255) NOT NULL,
 PRIMARY KEY (`id`),
-CONSTRAINT full_name UNIQUE (full_name, last_name)
+CONSTRAINT full_name UNIQUE (first_name, last_name)
 )ENGINE=InnoDB;
 
 /*Create a table called project with the following columns:
@@ -46,6 +46,7 @@ CREATE TABLE `project`(
 `title` varchar(255) NOT NULL,
 `comments` TEXT,
 `cid` INT,
+PRIMARY KEY (`id`),
 FOREIGN KEY (`cid`) REFERENCES `client` (`id`)
 )ENGINE=InnoDB;
 
@@ -60,11 +61,13 @@ The primary key is a combination of eid and pid*/
 CREATE TABLE `works_on`(
 `pid` INT,
 `eid` INT,
-`due_date DATE NOT NULL,
-FOREIGN KEY (`cid`) REFERENCES `client` (`id`),
+`due_date` DATE NOT NULL,
+FOREIGN KEY (`pid`) REFERENCES `project` (`id`),
 FOREIGN KEY (`eid`) REFERENCES `employee` (`id`),
-PRIMARY KEY (`cid`, `eid`)
+PRIMARY KEY (`pid`, `eid`)
 )ENGINE=InnoDB;
+
+
 
 
 
